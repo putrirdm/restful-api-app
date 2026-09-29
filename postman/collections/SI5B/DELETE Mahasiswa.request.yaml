@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://localhost:3000/mahasiswa/2
+method: GET
+order: 2523
