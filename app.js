@@ -12,6 +12,22 @@ function logger(req, res, next) {
 
 // Didaftarkan sebelum route agar mencatat seluruh request
 app.use(logger);
+// function cekApiKey(req, res, next) {
+//   const apiKey = req.headers['x-api-key'];
+
+//   if (apiKey !== process.env.API_KEY) {
+//     return res.status(401).json({ message: 'API key tidak valid' });
+//   }
+
+//   next();
+// }
+
+// function errorHttp(status, message) {
+//   const err = new Error(message);
+//   err.status = status;
+//   return err;
+// }
+
 app.use(cors({
   origin: process.env.CORS_ORIGIN,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -57,7 +73,7 @@ app.get('/mahasiswa/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const data = mahasiswa.find((m) => m.id === id);
 
-  if (!data) return res.status(404).json({ message: 'Data tidak ditemukan' });
+  if (!data) return next(errorHttp(404, 'Data tidak ditemukan'));
   res.json(data);
 });
 
@@ -67,7 +83,7 @@ app.post('/mahasiswa', (req, res) => {
   const { nama, jurusan } = req.body;
 
   if (!nama || !jurusan) {
-    return res.status(400).json({ message: 'nama dan jurusan wajib diisi' });
+    return next(errorHttp(400, 'nama dan jurusan wajib diisi'));
   }
 
   const baru = { id: nextId++, nama, jurusan };

@@ -1,4 +1,4 @@
 $kind: http-request
 url: http://localhost:3000/mahasiswa/2
-method: GET
+method: DELETE
 order: 2523

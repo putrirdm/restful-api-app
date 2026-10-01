@@ -1,4 +1,4 @@
 $kind: http-request
 url: http://localhost:3000/mahasiswa/4
-method: GET
+method: PUT
 order: 3000

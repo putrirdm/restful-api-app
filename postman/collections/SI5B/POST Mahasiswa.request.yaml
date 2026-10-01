@@ -1,6 +1,6 @@
 $kind: http-request
 url: http://localhost:3000/mahasiswa?jurusan=Sistem Informasi
-method: GET
+method: POST
 queryParams:
   jurusan: Sistem Informasi
 order: 4000
