@@ -1,0 +1,8 @@
+name: Production
+values:
+  - key: base_url
+    value: ''
+  - key: api_key
+    value: ''
+  - key: mahasiswaId
+    value: ''
