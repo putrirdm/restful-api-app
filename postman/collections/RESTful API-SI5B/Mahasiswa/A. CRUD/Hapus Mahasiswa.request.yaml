@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa/{{mahasiswaId}}"
+method: DELETE
+headers:
+  x-api-key: "{{api_key}}"
+order: 1791876288631
