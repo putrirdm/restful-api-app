@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{base_url}}/disaster-reports/{{bencanaId}}"
+method: GET
+order: 3000

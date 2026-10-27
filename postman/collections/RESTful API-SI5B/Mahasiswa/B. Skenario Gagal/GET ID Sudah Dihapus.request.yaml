@@ -1,4 +1,25 @@
 $kind: http-request
-url: ""
+url: "{{base_url}}/mahasiswa/{{mahasiswaId}}"
 method: GET
+headers:
+  - key: x-api-key
+    value: ""
+    disabled: true
+    description: ""
+scripts:
+  - type: afterResponse
+    code: "pm.test('Status code adalah 404', function () {\r
+
+      \  pm.response.to.have.status(404);\r
+
+      });\r
+
+      \r
+
+      pm.test('Pesan error: Data tidak ditemukan', function () {\r
+
+      \  pm.expect(pm.response.json().message).to.eql('Data tidak ditemukan');\r
+
+      });"
+    language: text/javascript
 order: 1000

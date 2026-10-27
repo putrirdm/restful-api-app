@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}/disaster-reports/{{bencanaId}}"
+method: DELETE
+headers:
+  x-api-key: "{{api_key}}"
+order: 5000

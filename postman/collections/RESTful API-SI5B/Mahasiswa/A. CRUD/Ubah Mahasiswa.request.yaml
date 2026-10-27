@@ -5,7 +5,7 @@ headers:
   x-api-key: "{{api_key}}"
 body:
   type: json
-  content: ""
+  content: '{"nama":"ewaldo","nim":"2301003"}'
 scripts:
   - type: afterResponse
     code: "pm.test('Status code adalah 200', function () {\r

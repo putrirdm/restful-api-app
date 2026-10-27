@@ -1,0 +1,35 @@
+$kind: http-request
+url: "{{base_url}}/disaster-reports"
+method: POST
+headers:
+  x-api-key: "{{api_key}}"
+body:
+  type: json
+  content: "\r
+
+    {\r
+
+    \  \"jenisBencana\": \"banjir\",\r
+
+    \  \"Lokasi\":\"Lemabang\"\r
+
+    }\r
+
+    \  "
+scripts:
+  - type: afterResponse
+    code: "pm.test('Status code adalah 400', function () {\r
+
+      \  pm.response.to.have.status(400);\r
+
+      });\r
+
+      \r
+
+      pm.test('Pesan error menyebut field wajib', function () {\r
+
+      \  pm.expect(pm.response.json().message).to.include('wajib diisi');\r
+
+      });"
+    language: text/javascript
+order: 4000

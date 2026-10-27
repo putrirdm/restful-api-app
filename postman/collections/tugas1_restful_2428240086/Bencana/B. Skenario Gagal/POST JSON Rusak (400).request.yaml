@@ -1,0 +1,35 @@
+$kind: http-request
+url: "{{base_url}}/disaster-reports"
+method: POST
+headers:
+  x-api-key: "{{api_key}}"
+body:
+  type: json
+  content: "\r
+
+    {\r
+
+    \  \"jenisBencana\": \"banjir\",\r
+
+    }\r
+
+    \  "
+scripts:
+  - type: afterResponse
+    code: "pm.test('Status code adalah 400', function () {\r
+
+      \  pm.response.to.have.status(400);\r
+
+      });\r
+
+      \r
+
+      pm.test('Respons tetap berupa JSON, bukan HTML', function () {\r
+
+      \  pm.response.to.be.json;\r
+
+      \  pm.expect(pm.response.json().message).to.eql('Format JSON tidak valid');\r
+
+      });"
+    language: text/javascript
+order: 5000

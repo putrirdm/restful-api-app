@@ -1,0 +1,51 @@
+$kind: http-request
+url: "{{base_url}}/disaster-reports"
+method: POST
+headers:
+  x-api-key: "{{api_key}}"
+body:
+  type: json
+  content: "\r
+
+    {\r
+
+    \  \"jenisBencana\": \"banjir\",\r
+
+    \  \"lokasi\": \"Kec. Ilir Timur II\",\r
+
+    \  \"tanggal\": \"2026-10-20\",\r
+
+    \  \"tingkatKeparahan\": \"sedang\"\r
+
+    }\r\n"
+scripts:
+  - type: afterResponse
+    code: "\r
+
+      pm.test(\"Status code adalah 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Respons berhasil menambahkan laporan\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    const laporan = jsonData.data ?? jsonData;\r
+
+      \r
+
+      \    pm.expect(laporan).to.have.property(\"id\");\r
+
+      \    pm.expect(laporan.jenisBencana).to.eql(\"banjir\");\r
+
+      \r
+
+      \    pm.environment.set(\"bencanaId\", String(laporan.id));\r
+
+      });\r\n"
+    language: text/javascript
+order: 2000

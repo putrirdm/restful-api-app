@@ -1,4 +1,4 @@
 $kind: http-request
-url: ""
+url: "{{base_url}}/mahasiswa/{{mahasiswaId}}"
 method: GET
 order: 1791876286631

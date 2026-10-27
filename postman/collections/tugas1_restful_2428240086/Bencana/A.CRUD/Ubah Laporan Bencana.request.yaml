@@ -1,0 +1,71 @@
+$kind: http-request
+url: "{{base_url}}/disaster-reports/{{bencanaId}}"
+method: PUT
+headers:
+  x-api-key: "{{api_key}}"
+body:
+  type: json
+  content: "\r
+
+    {\r
+
+    \  \"jenisBencana\": \"banjir\",\r
+
+    \  \"lokasi\": \"Kec. Seberang Ulu I\",\r
+
+    \  \"tanggal\": \"2026-09-20\",\r
+
+    \  \"tingkatKeparahan\": \"berat\",\r
+
+    \  \"jumlahPengungsi\": 120\r
+
+    }\r\n"
+scripts:
+  - type: afterResponse
+    code: "\r
+
+      pm.test(\"Status code adalah 200 OK\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Respons berupa JSON\", function () {\r
+
+      \    pm.response.to.be.json;\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Data laporan berhasil diubah\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(jsonData).to.have.property(\"id\");\r
+
+      \    pm.expect(String(jsonData.id)).to.eql(\r
+
+      \        String(pm.environment.get(\"bencanaId\"))\r
+
+      \    );\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Tingkat keparahan sudah berubah\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(jsonData.tingkatKeparahan).to.eql(\"berat\");\r
+
+      });\r\n"
+    language: text/javascript
+order: 4000

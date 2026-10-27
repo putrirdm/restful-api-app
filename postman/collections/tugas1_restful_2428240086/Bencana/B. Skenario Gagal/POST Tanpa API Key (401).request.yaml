@@ -1,0 +1,55 @@
+$kind: http-request
+url: "{{base_url}}/disaster-reports"
+method: POST
+headers:
+  - key: Content-Type
+    value: application/json
+    disabled: false
+  - key: ""
+    value: ""
+    disabled: true
+    description: ""
+body:
+  type: json
+  content: "\r
+
+    {\r
+
+    \  \"jenisBencana\": \"banjir\",\r
+
+    \  \"lokasi\": \"Palembang\",\r
+
+    \  \"tanggal\": \"2026-10-22\",\r
+
+    \  \"tingkatKeparahan\": \"sedang\",\r
+
+    \  \"jumlahPengungsi\": 50\r
+
+    }\r\n"
+scripts:
+  - type: afterResponse
+    code: "\r
+
+      pm.test(\"Status code adalah 401\", function () {\r
+
+      \    pm.response.to.have.status(401);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Pesan error API Key sesuai\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \r
+
+      \    pm.expect(jsonData.message).to.eql(\r
+
+      \        \"API key tidak valid atau tidak diberikan\"\r
+
+      \    );\r
+
+      });\r\n"
+    language: text/javascript
+order: 3000
