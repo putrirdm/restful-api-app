@@ -1,13 +1,15 @@
 $kind: http-request
-url: "{{base_url}}/mahasiswa"
+url: "{{base_url}}/mahasiswa?page=3"
 method: GET
+queryParams:
+  page: "3"
 scripts:
   - type: afterResponse
-    code: "pm.test('Status code adalah 200', function (){\r
+    code: "pm.test('Status code adalah 200', function () {\r
 
-      \    pm.response.to.have.status(200);\r
+      \  pm.response.to.have.status(200);\r
 
-      })\r
+      }); \r
 
       \r
 
@@ -53,4 +55,4 @@ scripts:
 
       });"
     language: text/javascript
-order: 1791876284631
+order: 1791876127787
