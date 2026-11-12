@@ -1,0 +1,10 @@
+$kind: http-request
+name: Register 1
+url: "{{base_url}}/auth/register"
+method: POST
+headers:
+  x-api-key: "{{api_key}}"
+body:
+  type: json
+  content: '{ "username": "staf1", "password": "rahasia123" }'
+order: 1000
